@@ -1,8 +1,12 @@
+using HotChocolate.Execution;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Snapshooter.Xunit;
+using System;
+using System.IO;
 
 namespace hc_bugs
 {
@@ -29,6 +33,14 @@ namespace hc_bugs
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var schema = app.ApplicationServices.CreateScope().ServiceProvider.GetSchemaAsync().GetAwaiter().GetResult();
+            var sdl = schema.ToString();
+
+            File.Delete("schema.graphql");
+            var file = File.CreateText("schema.graphql");
+            file.Write(sdl);
+            file.Close();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

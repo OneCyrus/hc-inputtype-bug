@@ -1,6 +1,6 @@
 ﻿namespace hc_bugs
 {
-    public class Person : AbstractThing
+    public class Person
     {
         public Person(string name)
         {

@@ -2,7 +2,6 @@
 {
     public class Query
     {
-        public IThingUnion GetPerson() => new Person("Luke Skywalker");
-        public IThingUnion GetAnimal() => new Animal("Dog");
+        public Person GetPerson() => new Person("Luke Skywalker");
     }
 }
