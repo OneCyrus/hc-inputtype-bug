@@ -4,7 +4,7 @@ schema {
 }
 
 type Mutation {
-  addPerson(p: Person!): Person!
+  addPerson(p: PersonInput!): Person!
 }
 
 type Person {
@@ -13,4 +13,8 @@ type Person {
 
 type Query {
   person: Person!
+}
+
+input PersonInput {
+  name: String!
 }

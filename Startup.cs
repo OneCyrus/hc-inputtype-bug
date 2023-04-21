@@ -23,11 +23,16 @@ namespace hc_bugs
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+            services.AddSingleton<Person>(new Person("test"));
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
-                .AddType<Person>();
+                .AddType<Person>()
+                .ConfigureSchema((s, b) =>
+                {
+                    var x = s.GetRequiredService<Person>();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
